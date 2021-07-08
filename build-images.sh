@@ -40,7 +40,7 @@ for user in kafka client zookeeper; do
     -in certs/$user.csr \
     -out certs/$user-ca1-signed.crt \
     -sha256 \
-    --CAcreateserial \
+    -CAcreateserial \
     -days 365 \
     -passin pass:confluent \
     -extensions v3_req \
