@@ -15,38 +15,13 @@ version: "2.3"
 services:
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:6.2.0
+    image: cp-zookeeper-mtls:6.2.0
     restart: always
     hostname: zookeeper
     container_name: zookeeper
     ports:
       - 2181:2181
       - 2182:2182
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_SECURE_CLIENT_PORT: 2182
-      ZOOKEEPER_SERVER_CNXN_FACTORY: org.apache.zookeeper.server.NettyServerCnxnFactory
-      ZOOKEEPER_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka.zookeeper.keystore.jks
-      ZOOKEEPER_SSL_KEYSTORE_PASSWORD: confluent
-      ZOOKEEPER_SSL_KEYSTORE_TYPE: PKCS12
-      ZOOKEEPER_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka.zookeeper.truststore.jks
-      ZOOKEEPER_SSL_TRUSTSTORE_PASSWORD: confluent
-      ZOOKEEPER_SSL_TRUSTSTORE_TYPE: JKS
-
-      # TLS 1.2 is the tested-default - TLS 1.3 has not been tested for production
-      # You can evaluate TLS 1.3 for ZooKeeper by uncommenting the following two properties
-      # and setting KAFKA_ZOOKEEPER_SSL_PROTOCOL on brokers
-      #ZOOKEEPER_SSL_ENABLED_PROTOCOLS: TLSv1.3,TLSv1.2
-      #ZOOKEEPER_SSL_QUORUM_ENABLED_PROTOCOLS: TLSv1.3,TLSv1.2
-
-      ZOOKEEPER_SSL_CIPHER_SUITES: TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256,TLS_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-      ZOOKEEPER_SSL_CLIENT_AUTH: need
-      ZOOKEEPER_AUTH_PROVIDER_X509: org.apache.zookeeper.server.auth.X509AuthenticationProvider
-      ZOOKEEPER_AUTH_PROVIDER_SASL: org.apache.zookeeper.server.auth.SASLAuthenticationProvider
-      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/zookeeper_jaas.conf
-    volumes:
-      - ./kafka/certs:/etc/kafka/secrets
 
   kafka:
     image: cp-server-mtls:6.2.0

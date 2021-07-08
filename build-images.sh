@@ -90,12 +90,14 @@ EOF
 
 done
 
-rm -r kafka/certs || echo could not delete directory
+rm -r kafka/certs zookeeper/certs || echo could not delete directory
 cp -r certs kafka
-cp zookeeper_jaas.conf kafka/certs/
+cp -r certs zookeeper
+cp zookeeper_jaas.conf zookeeper/certs/
 cp kafka_sslkey_creds kafka/certs/
 cp kafka_keystore_creds kafka/certs/
 cp kafka_truststore_creds kafka/certs/
 cp broker_jaas.conf kafka/certs/
 
-cd kafka && docker build . -t cp-server-mtls:6.2.0
+cd kafka && docker build . -t cp-server-mtls:6.2.0 && cd ..
+cd zookeeper && docker build . -t cp-zookeeper-mtls:6.2.0
