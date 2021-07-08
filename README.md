@@ -2,6 +2,8 @@
 
 This project provides a sample docker containers for locally running a single node Kafka cluster with mTLS enabled, and the option to easily add sample data. The certificate configuration scripts and the docker configuration are based upon the https://github.com/confluentinc/cp-demo repository, but were adopted to the needs of this repository to a large extent. 
 
+![Overview](Docker-MTLS-Setup.png?raw=true "Overview")
+
 ## Building the Images
 
 Prerequisites
