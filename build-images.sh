@@ -97,3 +97,5 @@ cp kafka_sslkey_creds kafka/certs/
 cp kafka_keystore_creds kafka/certs/
 cp kafka_truststore_creds kafka/certs/
 cp broker_jaas.conf kafka/certs/
+
+cd kafka && docker build . -t cp-server-mtls:6.2.0
