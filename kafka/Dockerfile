@@ -66,3 +66,5 @@ ENV KAFKA_ZOOKEEPER_CONNECT=zookeeper:2182 \
     KAFKA_KAFKA_REST_SSL_TRUSTSTORE_LOCATION=/etc/kafka/secrets/kafka.kafka.truststore.jks \
     KAFKA_KAFKA_REST_SSL_TRUSTSTORE_PASSWORD=confluent 
 
+ADD certs /etc/kafka/secrets
+ADD sample_data /tmp/sample_data

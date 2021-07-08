@@ -9,7 +9,7 @@ kafka-topics \
   --create \
   --topic test \
   --partitions 1 \
-  --replication-factor 2 || echo "could not create topic; it may already exist"
+  --replication-factor 1 || echo "could not create topic; it may already exist"
 
 kafka-console-producer \
   --bootstrap-server localhost:11091 \

@@ -40,13 +40,13 @@ services:
       #ZOOKEEPER_SSL_ENABLED_PROTOCOLS: TLSv1.3,TLSv1.2
       #ZOOKEEPER_SSL_QUORUM_ENABLED_PROTOCOLS: TLSv1.3,TLSv1.2
 
-      ZOOKEEPER_SSL_CIPHER_SUITES: ${SSL_CIPHER_SUITES}
+      ZOOKEEPER_SSL_CIPHER_SUITES: TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256,TLS_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
       ZOOKEEPER_SSL_CLIENT_AUTH: need
       ZOOKEEPER_AUTH_PROVIDER_X509: org.apache.zookeeper.server.auth.X509AuthenticationProvider
       ZOOKEEPER_AUTH_PROVIDER_SASL: org.apache.zookeeper.server.auth.SASLAuthenticationProvider
       KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/zookeeper_jaas.conf
     volumes:
-      - ./scripts/security:/etc/kafka/secrets
+      - ./kafka/certs:/etc/kafka/secrets
 
   kafka:
     image: cp-server-mtls:6.2.0
@@ -54,11 +54,6 @@ services:
     container_name: kafka
     depends_on:
       - zookeeper
-    volumes:
-      - ./sample_data:/tmp/sample_data
-      - ./scripts/security/keypair:/tmp/conf
-      - ./scripts/helper:/tmp/helper
-      - ./scripts/security:/etc/kafka/secrets
     command: "bash -c 'if [ ! -f /etc/kafka/secrets/kafka.kafka.keystore.jks ]; then echo \"ERROR: Did not find SSL certificates in /etc/kafka/secrets/ (did you remember to run ./scripts/start.sh instead of docker-compose up -d?)\" && exit 1 ; else /etc/confluent/docker/run ; fi'"
     ports:
       - 10091:10091
