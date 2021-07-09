@@ -28,23 +28,22 @@ public class MessageSender {
 
     @Scheduled(fixedDelay = 1000, initialDelay = 1000)
     public void produce() {
-        log.info("Sending message");
-        kafkaTemplate.send(
-                new ProducerRecord<>(
-                        "messages",
-                        null,
-                        UUID.randomUUID().toString(),
-                        UUID.randomUUID().toString(),
-                        Collections.singletonList(
-                                new RecordHeader(
-                                        "type",
-                                        (r.nextFloat() < 0.5) ?
-                                                "type-A".getBytes(StandardCharsets.UTF_8) :
-                                                "type-B".getBytes(StandardCharsets.UTF_8)
-                                )
+        var record = new ProducerRecord<>(
+                "messages",
+                null,
+                UUID.randomUUID().toString(),
+                UUID.randomUUID().toString(),
+                Collections.singletonList(
+                        new RecordHeader(
+                                "type",
+                                (r.nextFloat() < 0.5) ?
+                                        "type-A".getBytes(StandardCharsets.UTF_8) :
+                                        "type-B".getBytes(StandardCharsets.UTF_8)
                         )
                 )
         );
+        log.info("Sending record {}", record.toString());
+        kafkaTemplate.send(record);
     }
 
 }
