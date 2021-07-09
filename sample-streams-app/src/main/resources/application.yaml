@@ -2,6 +2,7 @@ spring:
   kafka:
     properties:
       bootstrap.servers: localhost:11091
+      processing.guarantee: exactly_once
       security.protocol: SSL
       acks: all
       ssl:

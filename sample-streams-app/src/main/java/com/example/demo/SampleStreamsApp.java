@@ -16,10 +16,10 @@ import org.springframework.kafka.config.TopicBuilder;
 @SpringBootApplication
 @EnableKafka
 @EnableKafkaStreams
-public class DemoApplication {
+public class SampleStreamsApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(SampleStreamsApp.class, args);
 	}
 
 	@Bean
