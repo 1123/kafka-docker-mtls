@@ -1,6 +1,8 @@
 spring:
   kafka:
     properties:
+      delivery.timeout.ms: 1800000 # set the delivery timeout to as long as you want your application retry delivery to Kafka, if Kafka is unavailable.
+      enable.idempotency: true # this removes duplicates that may be introduced by retries
       bootstrap.servers: localhost:11091
       security.protocol: SSL
       acks: all
