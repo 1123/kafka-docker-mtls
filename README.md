@@ -1,6 +1,8 @@
-# Kafka Single Node Sample Environment with mTLS Authentication and Sample Data
+# Kafka Single Node Sample Environment with mTLS Authentication and Sample Data and Sample Spring Apps
 
-This project provides sample docker containers for locally running a single node Kafka cluster with mTLS enabled, and the option to easily add sample data. The certificate configuration scripts and the docker configuration are based upon the https://github.com/confluentinc/cp-demo repository, but were heavily adopted to the needs of this repository. 
+This project provides sample docker containers for locally running a single node Kafka cluster with mTLS enabled, and the option to easily add sample data. 
+The certificate configuration scripts and the docker configuration are based upon the https://github.com/confluentinc/cp-demo repository, but were heavily adopted to the needs of this repository. 
+In addition Spring Boot Producer, Streams and Consumer Apps are provided and preconfigured for this development environment. 
 
 ![Overview](Docker-MTLS-Setup.png?raw=true "Overview")
 
@@ -17,7 +19,7 @@ Prerequisites
 The Kafka and Zookeeper images are based upon confluentinc/cp-server and confluentinc/cp-zookeeper, respectively.
 They are built with a single command: 
 
-. `./build_images.sh`
+- `./build_images.sh`
 
 This will 
 - generate a root certificate authority 
@@ -49,3 +51,20 @@ Testing if everything works:
 Stopping the containers: 
 
 - `docker-compose down`
+
+## Running the Spring Sample Apps
+
+![Overview](Spring-Kafka-Docker-Sample-Apps-mTLS.png?raw=true "Overview")
+
+Prerequisites: 
+
+- JDK 11 or higher
+- A recent version of Maven
+- Access to Maven Central 
+- The docker demo environment up and running
+
+Steps to run: 
+
+- start the producer application: `cd sample-producer-app; mvn spring-boot:run`
+- start the streams app: `cd sample-streams-app; mvn spring-boot:run`
+- start the consumer app: `cd sample-consumer-app; mvn spring-boot:run`
