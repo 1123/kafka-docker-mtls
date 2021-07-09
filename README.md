@@ -65,6 +65,6 @@ Prerequisites:
 
 Steps to run: 
 
-- start the producer application: `cd sample-producer-app; mvn spring-boot:run`
+- start the producer application: `cd sample-producer-app; ./copy-trust-and-keystore.sh; mvn spring-boot:run`
 - start the streams app: `cd sample-streams-app; mvn spring-boot:run`
 - start the consumer app: `cd sample-consumer-app; mvn spring-boot:run`
