@@ -1,0 +1,15 @@
+spring:
+  kafka:
+    properties:
+      bootstrap.servers: localhost:11091
+      security.protocol: SSL
+      acks: all
+      ssl:
+        keystore:
+          location: /tmp/kafka.client.keystore.jks # WARN: On a production system, the keystore should be in a safe place!
+          password: confluent
+        truststore:
+          location: /tmp/kafka.client.truststore.jks # WARN: On a production system, the truststore should be in a safe place!
+          password: confluent
+
+
