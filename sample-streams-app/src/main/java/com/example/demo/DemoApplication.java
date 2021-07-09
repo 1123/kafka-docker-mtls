@@ -34,8 +34,8 @@ public class DemoApplication {
 	@Bean
 	public NewTopic messagesTypeA() {
 		return TopicBuilder.name("messages-type-A")
-				.partitions(10)
-				.replicas(3)
+				.partitions(6)
+				.replicas(1)
 				.compact()
 				.build();
 	}
@@ -43,22 +43,23 @@ public class DemoApplication {
 	@Bean
 	public NewTopic messagesTypeB() {
 		return TopicBuilder.name("messages-type-B")
-				.partitions(10)
-				.replicas(3)
+				.partitions(6)
+				.replicas(1)
 				.compact()
 				.build();
 	}
 
 	@Bean
-	public KStream<?, ?> kStream(StreamsBuilder kStreamBuilder) {
-		KStream<Integer, byte[]> stream = kStreamBuilder.stream(
+	public KStream<String, String> kStream(StreamsBuilder kStreamBuilder) {
+		KStream<String, String> stream = kStreamBuilder.stream(
 				"messages",
-				Consumed.with(new Serdes.IntegerSerde(), new Serdes.ByteArraySerde())
+				Consumed.with(new Serdes.StringSerde(), new Serdes.StringSerde())
 		);
-		stream.mapValues(m -> m)
-				.to("messages-type-A", Produced.with(new Serdes.IntegerSerde(), new Serdes.ByteArraySerde()));
-		stream.mapValues(m -> m)
-				.to("messages-type-B", Produced.with(new Serdes.IntegerSerde(), new Serdes.ByteArraySerde()));
+		stream.to(
+				(key, value, recordContext) ->
+						"messages-" + new String(recordContext.headers().lastHeader("type").value()),
+				Produced.with(new Serdes.StringSerde(), new Serdes.StringSerde())
+		);
 		return stream;
 	}
 
