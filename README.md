@@ -1,7 +1,7 @@
 # Kafka Single Node Sample Environment with mTLS Authentication and Sample Data and Sample Spring Apps
 
 This project provides sample docker containers for locally running a single node Kafka cluster with mTLS enabled, and the option to easily add sample data. 
-The certificate configuration scripts and the docker configuration are based upon the https://github.com/confluentinc/cp-demo repository, but were heavily adopted to the needs of this repository. 
+The certificate generation scripts and the docker configuration are based upon the https://github.com/confluentinc/cp-demo repository, but were heavily adopted to the needs of this repository. 
 In addition Spring Boot Producer, Streams and Consumer Apps are provided and preconfigured for this development environment. 
 
 ![Overview](Docker-MTLS-Setup.png?raw=true "Overview")
